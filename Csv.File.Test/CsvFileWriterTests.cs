@@ -37,7 +37,7 @@ namespace Csv.File.Tests
         }
 
         [TestFixture]
-        public class WriteRecords
+        public class Write
         {
             [Test]
             public void WhenSingleRecord_ShouldWriteToFile()

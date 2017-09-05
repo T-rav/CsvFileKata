@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerTestDataFactory.cs" />
-    <Compile Include="TestDecoratedCsvFileWriter.cs" />
+    <Compile Include="DecoratedCsvFileWriterTests.cs" />
     <Compile Include="NullDuplicatesStrategyTests.cs" />
     <Compile Include="RemoveDuplicatesStrategyTests.cs" />
     <Compile Include="CsvFileWriterTests.cs" />

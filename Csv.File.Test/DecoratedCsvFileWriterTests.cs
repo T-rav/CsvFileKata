@@ -5,9 +5,9 @@ using NUnit.Framework;
 namespace Csv.File.Tests
 {
     [TestFixture]
-    public class TestDecoratedCsvFileWriter
+    public class DecoratedCsvFileWriterTests
     {
-        public class WriteRecords
+        public class Write
         {
             [Test]
             public void WhenNotNullCustomers_ShouldWriteToProductionAndDebugFiles()
