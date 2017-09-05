@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Csv.File.Tests
 {
@@ -45,16 +43,6 @@ namespace Csv.File.Tests
             var result = removeDuplicatesStrategy.Apply(null);
             //---------------Assert ----------------------
             CollectionAssert.IsEmpty(result);
-        }
-    }
-
-    public class RemoveDuplicatesStrategy : IDuplicationStrategy
-    {
-        public List<Customer> Apply(List<Customer> customers)
-        {
-            if(customers == null) return new List<Customer>();
-
-            return customers.GroupBy(c => c.Name).Select(c => c.First()).ToList();
         }
     }
 }

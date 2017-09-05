@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Csv.File
 {
-    public class CsvFileWriter : ICsvFileWriter
+    public class CsvFileWriter : ICsvFileWriter, ICsvBatchFileWriter
     {
         private readonly IDuplicationStrategy _duplicateStrategy;
         private readonly IFileSystem _fileSystem;
