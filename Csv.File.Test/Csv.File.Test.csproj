@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerTestDataFactory.cs" />
+    <Compile Include="RemoveDuplicatesStrategyTests.cs" />
     <Compile Include="CsvFileWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

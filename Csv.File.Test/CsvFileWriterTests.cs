@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using PeanutButter.RandomGenerators;
 
 namespace Csv.File.Tests
 {
@@ -13,10 +12,22 @@ namespace Csv.File.Tests
         public void Ctor_WhenNullFileSystem_ShouldThrowArgumentNullException()
         {
             //---------------Arrange-------------------
+            var duplicationStrategy = Substitute.For<IDuplicationStrategy>();
             //---------------Act----------------
-            var result = Assert.Throws<ArgumentNullException>(() => new CsvFileWriter(null));
+            var result = Assert.Throws<ArgumentNullException>(() => new CsvFileWriter(null, duplicationStrategy));
             //---------------Assert ----------------------
             Assert.AreEqual("fileSystem",result.ParamName);
+        }
+
+        [Test]
+        public void Ctor_WhenNullDuplicationStrategy_ShouldThrowArgumentNullException()
+        {
+            //---------------Arrange-------------------
+            var fileSystem = Substitute.For<IFileSystem>();
+            //---------------Act----------------
+            var result = Assert.Throws<ArgumentNullException>(() => new CsvFileWriter(fileSystem, null));
+            //---------------Assert ----------------------
+            Assert.AreEqual("duplicateStrategy", result.ParamName);
         }
 
         [Test]
@@ -26,7 +37,7 @@ namespace Csv.File.Tests
             var fileName = "import.csv";
             var expectedLine = "Bob Jones,0845009876";
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
+            var writer = CreateCsvFileWriter(fileSystem);
             //---------------Act----------------
             var customer = new List<Customer>{new Customer{Name = "Bob Jones", ContactNumber = "0845009876" }};
             writer.Write(fileName, customer);
@@ -40,7 +51,7 @@ namespace Csv.File.Tests
             //---------------Arrange-------------------
             var fileName = "import.csv";
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
+            var writer = CreateCsvFileWriter(fileSystem);
             //---------------Act----------------
             var customer = CreateCustomers(5);
             writer.Write(fileName, customer);
@@ -54,7 +65,7 @@ namespace Csv.File.Tests
             //---------------Arrange-------------------
             var fileName = "import.csv";
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
+            var writer = CreateCsvFileWriter(fileSystem);
             //---------------Act----------------
             writer.Write(fileName, null);
             //---------------Assert ----------------------
@@ -68,7 +79,7 @@ namespace Csv.File.Tests
         {
             //---------------Arrange-------------------
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
+            var writer = CreateCsvFileWriter(fileSystem);
             var customer = CreateCustomers(5);
             //---------------Act----------------
             writer.Write(fileName, customer);
@@ -84,7 +95,7 @@ namespace Csv.File.Tests
             //---------------Arrange-------------------
             var fileName = "import.csv";
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
+            var writer = CreateCsvFileWriter(fileSystem);
             //---------------Act----------------
             var customer = CreateCustomers(totalRecords);
             writer.WriteInBatchOf(fileName, customer, batchSize);
@@ -99,26 +110,29 @@ namespace Csv.File.Tests
             //---------------Arrange-------------------
             var fileName = "import.csv";
             var fileSystem = Substitute.For<IFileSystem>();
-            var writer = new CsvFileWriter(fileSystem);
-            var customers = CreateCustomers(10);
+            var writer = CreateCsvFileWriter(fileSystem);
+            var customers = CreateCustomersWithDuplicates(10,2);
             //---------------Act----------------
             writer.Write(fileName, customers);
             //---------------Assert ----------------------
-            fileSystem.Received(10).WriteLine(fileName, Arg.Any<string>());
+            fileSystem.Received(9).WriteLine(fileName, Arg.Any<string>());
         }
 
-        private List<Customer> CreateCustomers(int customerCount)
+        private List<Customer> CreateCustomersWithDuplicates(int numberOfRecords, int duplicateCount)
         {
-            var result = new List<Customer>();
-            for (var count = 0; count < customerCount; count++)
-            {
-                var name = $"{RandomValueGen.GetRandomAlphaString(8, 12)} {RandomValueGen.GetRandomAlphaString(8, 12)}";
-                var number = RandomValueGen.GetRandomNumericString(9, 9);
-                var customer = new Customer { Name = name, ContactNumber = number };
-                result.Add(customer);
-            }
-            return result;
+            return new CustomerTestDataFactory().CreateCustomersWithDuplicates(numberOfRecords, duplicateCount);
         }
 
+        private List<Customer> CreateCustomers(int totalRecords)
+        {
+            return new CustomerTestDataFactory().CreateCustomers(totalRecords);
+        }
+
+        private static CsvFileWriter CreateCsvFileWriter(IFileSystem fileSystem)
+        {
+            var duplicateStrategy = new RemoveDuplicatesStrategy();
+            var writer = new CsvFileWriter(fileSystem, duplicateStrategy);
+            return writer;
+        }
     }
 }

@@ -6,10 +6,12 @@ namespace Csv.File
 {
     public class CsvFileWriter : ICsvFileWriter
     {
+        private readonly IDuplicationStrategy _duplicateStrategy;
         private readonly IFileSystem _fileSystem;
 
-        public CsvFileWriter(IFileSystem fileSystem)
+        public CsvFileWriter(IFileSystem fileSystem, IDuplicationStrategy duplicateStrategy)
         {
+            _duplicateStrategy = duplicateStrategy ?? throw new ArgumentNullException(nameof(duplicateStrategy)); ;
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
 
@@ -32,7 +34,9 @@ namespace Csv.File
             if (customers == null) return;
             if (string.IsNullOrWhiteSpace(fileName)) return;
 
-            foreach (var customer in customers)
+            var dedupCustomers = _duplicateStrategy.Apply(customers);
+
+            foreach (var customer in dedupCustomers)
             {
                 var line = string.Join(",", customer.Name, customer.ContactNumber);
                 _fileSystem.WriteLine(fileName, line);
