@@ -27,19 +27,6 @@ namespace Csv.File
             }
         }
 
-        private static string GetBatchFileName(string fileName, int fileCount)
-        {
-            var batchFileName = $"{fileCount}_{fileName}";
-            return batchFileName;
-        }
-
-        private static IEnumerable<Customer> GetBatch(List<Customer> customer, int batchSize, int fileCount)
-        {
-            var batchedRecordsTaken = batchSize * fileCount;
-            var batch = customer.Skip(batchedRecordsTaken).Take(batchSize);
-            return batch;
-        }
-
         public void Write(string fileName, List<Customer> customers)
         {
             if (customers == null) return;
@@ -52,5 +39,17 @@ namespace Csv.File
             }
         }
 
+        private string GetBatchFileName(string fileName, int fileCount)
+        {
+            var batchFileName = $"{fileCount}_{fileName}";
+            return batchFileName;
+        }
+
+        private IEnumerable<Customer> GetBatch(List<Customer> customer, int batchSize, int fileCount)
+        {
+            var batchedRecordsTaken = batchSize * fileCount;
+            var batch = customer.Skip(batchedRecordsTaken).Take(batchSize);
+            return batch;
+        }
     }
 }
