@@ -43,10 +43,10 @@ namespace Csv.File.Tests
                 fileSystem.DidNotReceive().WriteLine(Arg.Any<string>(), Arg.Any<string>());
             }
 
-            [TestCase("")]
-            [TestCase(" ")]
-            [TestCase(null)]
-            public void WhenNullFilename_ShouldNotWriteToProductionAndDebugFiles(string fileName)
+            [TestCase("", TestName = "Empty String")]
+            [TestCase(" ", TestName = "Whitespace")]
+            [TestCase(null, TestName = "Null")]
+            public void WhenNullOrWhiteSpaceFilename_ShouldNotWriteToProductionAndDebugFiles(string fileName)
             {
                 //---------------Arrange-------------------
                 var fileSystem = Substitute.For<IFileSystem>();
