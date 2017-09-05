@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Csv.File.Domain;
+using Csv.File.Domain.Gateways;
 
 namespace Csv.File
 {

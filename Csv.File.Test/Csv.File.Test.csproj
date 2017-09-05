@@ -73,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Csv.File.Domain\Csv.File.Domain.csproj">
+      <Project>{45688a3b-77d9-4cf2-b2e6-9db9b92ce9a1}</Project>
+      <Name>Csv.File.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Csv.File\Csv.File.csproj">
       <Project>{c72b7d73-8c48-4309-96da-18118534de75}</Project>
       <Name>Csv.File</Name>

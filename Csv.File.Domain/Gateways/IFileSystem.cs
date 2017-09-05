@@ -1,4 +1,4 @@
-﻿namespace Csv.File
+﻿namespace Csv.File.Domain.Gateways
 {
     public interface IFileSystem
     {

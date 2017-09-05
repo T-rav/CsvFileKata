@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Csv.File.Domain;
 using PeanutButter.RandomGenerators;
 
 namespace Csv.File.Tests

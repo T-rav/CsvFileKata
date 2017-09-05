@@ -1,4 +1,6 @@
-﻿using NSubstitute;
+﻿using Csv.File.Domain;
+using Csv.File.Domain.Gateways;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Csv.File.Tests

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Csv.File
+namespace Csv.File.Domain
 {
     public interface IDuplicationStrategy
     {

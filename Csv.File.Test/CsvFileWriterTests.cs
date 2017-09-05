@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Csv.File.Domain;
+using Csv.File.Domain.Gateways;
 using NSubstitute;
 using NUnit.Framework;
 
