@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CsvFileWriter.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="ICsvFileWriter.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

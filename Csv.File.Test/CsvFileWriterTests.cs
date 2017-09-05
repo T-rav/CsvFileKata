@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
+using PeanutButter.RandomGenerators;
 
 namespace Csv.File.Tests
 {
@@ -27,7 +28,7 @@ namespace Csv.File.Tests
             var fileSystem = Substitute.For<IFileSystem>();
             var writer = new CsvFileWriter(fileSystem);
             //---------------Act----------------
-            var customer = CreateCustomers(1);
+            var customer = new List<Customer>{new Customer{Name = "Bob Jones", ContactNumber = "0845009876" }};
             writer.Write(fileName, customer);
             //---------------Assert ----------------------
             fileSystem.Received(1).WriteLine(fileName,expectedLine);
@@ -92,15 +93,32 @@ namespace Csv.File.Tests
             fileSystem.Received(remainderRecords).WriteLine($"2_{fileName}", Arg.Any<string>());
         }
 
+        [Test]
+        public void WriteRecords_WhenDuplicateCustomers_ShouldRemoveDuplicateEntriesWhenWriting()
+        {
+            //---------------Arrange-------------------
+            var fileName = "import.csv";
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            var customers = CreateCustomers(10);
+            //---------------Act----------------
+            writer.Write(fileName, customers);
+            //---------------Assert ----------------------
+            fileSystem.Received(10).WriteLine(fileName, Arg.Any<string>());
+        }
+
         private List<Customer> CreateCustomers(int customerCount)
         {
             var result = new List<Customer>();
             for (var count = 0; count < customerCount; count++)
             {
-                var customer = new Customer { Name = "Bob Jones", ContactNumber = "0845009876" };
+                var name = $"{RandomValueGen.GetRandomAlphaString(8, 12)} {RandomValueGen.GetRandomAlphaString(8, 12)}";
+                var number = RandomValueGen.GetRandomNumericString(9, 9);
+                var customer = new Customer { Name = name, ContactNumber = number };
                 result.Add(customer);
             }
             return result;
         }
+
     }
 }
