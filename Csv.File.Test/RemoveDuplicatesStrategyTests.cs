@@ -5,44 +5,47 @@ namespace Csv.File.Tests
     [TestFixture]
     public class RemoveDuplicatesStrategyTests
     {
-        [Test]
-        public void Apply_WhenDuplicateCustomers_ShouldRemoveDuplicates()
+        public class Apply
         {
-            //---------------Arrange-------------------
-            var expected = 11;
-            var totalRecords = 12;
-            var duplicates = 2;
-            var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
-            var customers = new CustomerTestDataFactory().CreateCustomersWithDuplicates(totalRecords,duplicates);
-            //---------------Act----------------
-            var result = removeDuplicatesStrategy.Apply(customers);
-            //---------------Assert ----------------------
-            Assert.AreEqual(expected, result.Count);
-        }
+            [Test]
+            public void WhenDuplicateCustomers_ShouldRemoveDuplicates()
+            {
+                //---------------Arrange-------------------
+                var expected = 11;
+                var totalRecords = 12;
+                var duplicates = 2;
+                var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
+                var customers = new CustomerTestDataFactory().CreateCustomersWithDuplicates(totalRecords, duplicates);
+                //---------------Act----------------
+                var result = removeDuplicatesStrategy.Apply(customers);
+                //---------------Assert ----------------------
+                Assert.AreEqual(expected, result.Count);
+            }
 
-        [Test]
-        public void Apply_WhenNoDuplicateCustomers_ShouldRemoveDuplicates()
-        {
-            //---------------Arrange-------------------
-            var expected = 12;
-            var totalRecords = 12;
-            var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
-            var customers = new CustomerTestDataFactory().CreateCustomers(totalRecords);
-            //---------------Act----------------
-            var result = removeDuplicatesStrategy.Apply(customers);
-            //---------------Assert ----------------------
-            Assert.AreEqual(expected, result.Count);
-        }
+            [Test]
+            public void WhenNoDuplicateCustomers_ShouldRemoveDuplicates()
+            {
+                //---------------Arrange-------------------
+                var expected = 12;
+                var totalRecords = 12;
+                var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
+                var customers = new CustomerTestDataFactory().CreateCustomers(totalRecords);
+                //---------------Act----------------
+                var result = removeDuplicatesStrategy.Apply(customers);
+                //---------------Assert ----------------------
+                Assert.AreEqual(expected, result.Count);
+            }
 
-        [Test]
-        public void Apply_WhenNullCustomers_ShouldReturnEmptyList()
-        {
-            //---------------Arrange-------------------
-            var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
-            //---------------Act----------------
-            var result = removeDuplicatesStrategy.Apply(null);
-            //---------------Assert ----------------------
-            CollectionAssert.IsEmpty(result);
+            [Test]
+            public void WhenNullCustomers_ShouldReturnEmptyList()
+            {
+                //---------------Arrange-------------------
+                var removeDuplicatesStrategy = new RemoveDuplicatesStrategy();
+                //---------------Act----------------
+                var result = removeDuplicatesStrategy.Apply(null);
+                //---------------Assert ----------------------
+                CollectionAssert.IsEmpty(result);
+            }
         }
     }
 }

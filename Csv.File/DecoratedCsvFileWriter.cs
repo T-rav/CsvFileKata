@@ -15,6 +15,8 @@ namespace Csv.File
 
         public void Write(string fileName, List<Customer> customers)
         {
+            if (customers == null) return;
+            if (string.IsNullOrWhiteSpace(fileName)) return;
             var productionWriter = new CsvFileWriter(_fileSystem, new RemoveDuplicatesStrategy());
             var debugWriter = new CsvFileWriter(_fileSystem, new NullDuplicatesStrategy());
             productionWriter.WriteInBatchOf(fileName, customers, 15000);
