@@ -75,6 +75,23 @@ namespace Csv.File.Tests
             fileSystem.DidNotReceive().WriteLine(Arg.Any<string>(), Arg.Any<string>());
         }
 
+        [TestCase(11,10, 1)]
+        [TestCase(15001, 15000,1)]
+        [TestCase(15005, 15000, 5)]
+        public void WriteInBatchOf_WhenJustMoreRecordsThanBatchSize_ShouldWriteToTwoFiles(int totalRecords, int batchSize, int remainderRecords)
+        {
+            //---------------Arrange-------------------
+            var fileName = "import.csv";
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            //---------------Act----------------
+            var customer = CreateCustomers(totalRecords);
+            writer.WriteInBatchOf(fileName, customer, batchSize);
+            //---------------Assert ----------------------
+            fileSystem.Received(batchSize).WriteLine($"1_{fileName}", Arg.Any<string>());
+            fileSystem.Received(remainderRecords).WriteLine($"2_{fileName}", Arg.Any<string>());
+        }
+
         private List<Customer> CreateCustomers(int customerCount)
         {
             var result = new List<Customer>();
