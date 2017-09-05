@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Csv.File.Tests
@@ -15,15 +17,73 @@ namespace Csv.File.Tests
             //---------------Assert ----------------------
             Assert.AreEqual("fileSystem",result.ParamName);
         }
-    }
 
-    public class CsvFileWriter
-    {
-        private IFileSystem _fileSystem;
-
-        public CsvFileWriter(IFileSystem fileSystem)
+        [Test]
+        public void WriteRecords_WhenSingleRecord_ShouldWriteToFile()
         {
-            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            //---------------Arrange-------------------
+            var fileName = "import.csv";
+            var expectedLine = "Bob Jones,0845009876";
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            //---------------Act----------------
+            var customer = CreateCustomers(1);
+            writer.Write(fileName, customer);
+            //---------------Assert ----------------------
+            fileSystem.Received(1).WriteLine(fileName,expectedLine);
+        }
+
+        [Test]
+        public void WriteRecords_WhenManyRecords_ShouldWriteAllToFile()
+        {
+            //---------------Arrange-------------------
+            var fileName = "import.csv";
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            //---------------Act----------------
+            var customer = CreateCustomers(5);
+            writer.Write(fileName, customer);
+            //---------------Assert ----------------------
+            fileSystem.Received(5).WriteLine(fileName, Arg.Any<string>());
+        }
+
+        [Test]
+        public void WriteRecords_WhenNullCustomers_ShouldNotWriteToFile()
+        {
+            //---------------Arrange-------------------
+            var fileName = "import.csv";
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            //---------------Act----------------
+            writer.Write(fileName, null);
+            //---------------Assert ----------------------
+            fileSystem.DidNotReceive().WriteLine(Arg.Any<string>(), Arg.Any<string>());
+        }
+
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase(null)]
+        public void WriteRecords_WhenEmptyOrNullFileName_ShouldNotWriteToFile(string fileName)
+        {
+            //---------------Arrange-------------------
+            var fileSystem = Substitute.For<IFileSystem>();
+            var writer = new CsvFileWriter(fileSystem);
+            var customer = CreateCustomers(5);
+            //---------------Act----------------
+            writer.Write(fileName, customer);
+            //---------------Assert ----------------------
+            fileSystem.DidNotReceive().WriteLine(Arg.Any<string>(), Arg.Any<string>());
+        }
+
+        private List<Customer> CreateCustomers(int customerCount)
+        {
+            var result = new List<Customer>();
+            for (var count = 0; count < customerCount; count++)
+            {
+                var customer = new Customer { Name = "Bob Jones", ContactNumber = "0845009876" };
+                result.Add(customer);
+            }
+            return result;
         }
     }
 }
