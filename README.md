@@ -1,2 +1,2 @@
 # CsvFileKata
-An example implementation of Csv File Kata in C#
+An example implementation of the Csv File Kata in C#
