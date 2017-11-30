@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using CsvFile.Kata.Dependencies;
 
-namespace Csv.File.Domain
+namespace Csv.File
 {
     public interface ICsvFileWriter
     {

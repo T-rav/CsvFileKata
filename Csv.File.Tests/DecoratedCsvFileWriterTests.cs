@@ -1,4 +1,4 @@
-﻿using Csv.File.Domain.Gateways;
+﻿using CsvFile.Kata.Dependencies;
 using NSubstitute;
 using NUnit.Framework;
 

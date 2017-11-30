@@ -36,6 +36,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="CsvFile.Kata.Dependencies, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvFile.Kata.Dependencies.1.1.0\lib\net452\CsvFile.Kata.Dependencies.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute, Version=3.1.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.3.1.0\lib\net46\NSubstitute.dll</HintPath>
     </Reference>
@@ -64,10 +67,6 @@
     <Compile Include="RemoveDuplicatesStrategyTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Csv.File.Domain\Csv.File.Domain.csproj">
-      <Project>{45688a3b-77d9-4cf2-b2e6-9db9b92ce9a1}</Project>
-      <Name>Csv.File.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Csv.File\Csv.File.csproj">
       <Project>{c72b7d73-8c48-4309-96da-18118534de75}</Project>
       <Name>Csv.File</Name>

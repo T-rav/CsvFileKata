@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Csv.File.Domain;
-using Csv.File.Domain.Gateways;
+using CsvFile.Kata.Dependencies;
 
 namespace Csv.File
 {
@@ -40,8 +39,7 @@ namespace Csv.File
 
             foreach (var customer in dedupCustomers)
             {
-                var line = string.Join(",", customer.Name, customer.ContactNumber);
-                _fileSystem.WriteLine(fileName, line);
+                _fileSystem.WriteLine(fileName, customer.ToString());
             }
         }
 

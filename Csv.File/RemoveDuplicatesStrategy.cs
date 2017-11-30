@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Csv.File.Domain;
+using CsvFile.Kata.Dependencies;
 
 namespace Csv.File
 {

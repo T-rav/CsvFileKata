@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvFile.Kata.Dependencies, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvFile.Kata.Dependencies.1.1.0\lib\net452\CsvFile.Kata.Dependencies.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,15 +45,15 @@
   <ItemGroup>
     <Compile Include="CsvFileWriter.cs" />
     <Compile Include="DecoratedCsvFileWriter.cs" />
+    <Compile Include="ICsvBatchFileWriter.cs" />
+    <Compile Include="ICsvFileWriter.cs" />
+    <Compile Include="IDuplicationStrategy.cs" />
     <Compile Include="NullDuplicatesStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveDuplicatesStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Csv.File.Domain\Csv.File.Domain.csproj">
-      <Project>{45688a3b-77d9-4cf2-b2e6-9db9b92ce9a1}</Project>
-      <Name>Csv.File.Domain</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

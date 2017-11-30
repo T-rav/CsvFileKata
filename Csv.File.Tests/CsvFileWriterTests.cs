@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Csv.File.Domain;
-using Csv.File.Domain.Gateways;
+using CsvFile.Kata.Dependencies;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -47,8 +46,8 @@ namespace Csv.File.Tests
                 var expectedLine = "Bob Jones,0845009876";
                 var fileSystem = Substitute.For<IFileSystem>();
                 var writer = CreateCsvFileWriter(fileSystem);
-                //---------------Act----------------
                 var customer = new List<Customer> { new Customer { Name = "Bob Jones", ContactNumber = "0845009876" } };
+                //---------------Act----------------
                 writer.Write(fileName, customer);
                 //---------------Assert ----------------------
                 fileSystem.Received(1).WriteLine(fileName, expectedLine);
@@ -61,8 +60,8 @@ namespace Csv.File.Tests
                 var fileName = "import.csv";
                 var fileSystem = Substitute.For<IFileSystem>();
                 var writer = CreateCsvFileWriter(fileSystem);
-                //---------------Act----------------
                 var customer = CreateCustomers(5);
+                //---------------Act----------------
                 writer.Write(fileName, customer);
                 //---------------Assert ----------------------
                 fileSystem.Received(5).WriteLine(fileName, Arg.Any<string>());
