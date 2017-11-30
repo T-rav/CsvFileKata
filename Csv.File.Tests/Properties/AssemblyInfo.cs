@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CsvFileKata")]
+[assembly: AssemblyTitle("CsvFile.Test.New")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CsvFileKata")]
+[assembly: AssemblyProduct("CsvFile.Test.New")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8f7e5696-451e-457a-a905-dfc3eea91d88")]
+[assembly: Guid("8e959b46-6972-4908-9320-c6152bab8525")]
 
 // Version information for an assembly consists of the following four values:
 //
