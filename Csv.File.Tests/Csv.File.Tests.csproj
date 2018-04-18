@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchCsvFileWriterTests.cs" />
     <Compile Include="CsvFileWriterTests.cs" />
     <Compile Include="CustomerTestDataFactory.cs" />
     <Compile Include="DecoratedCsvFileWriterTests.cs" />

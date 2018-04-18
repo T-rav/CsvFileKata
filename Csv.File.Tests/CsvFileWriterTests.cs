@@ -111,44 +111,6 @@ namespace Csv.File.Tests
             }
         }
 
-        [TestFixture]
-        public class WriteInBatchOf
-        {
-            [TestCase(11, 10, 1, TestName = "BatchSize of 10 with 11 records")]
-            [TestCase(15001, 15000, 1, TestName = "BatchSize of 15000 with 15001 records")]
-            [TestCase(15005, 15000, 5, TestName = "BatchSize of 15000 with 15005 records")]
-            public void WhenFewMoreRecordsThanBatchSize_ShouldWriteToTwoFiles(int totalRecords, int batchSize, int remainderRecords)
-            {
-                //---------------Arrange-------------------
-                var fileName = "import.csv";
-                var fileSystem = Substitute.For<IFileSystem>();
-                var writer = CreateCsvFileWriter(fileSystem);
-                //---------------Act----------------
-                var customer = CreateCustomers(totalRecords);
-                writer.WriteInBatchOf(fileName, customer, batchSize);
-                //---------------Assert ----------------------
-                fileSystem.Received(batchSize).WriteLine($"1_{fileName}", Arg.Any<string>());
-                fileSystem.Received(remainderRecords).WriteLine($"2_{fileName}", Arg.Any<string>());
-            }
-
-            [Test]
-            public void WhenBatchSizeEqualsNumberOfRecords_ShouldWriteToOneFile()
-            {
-                //---------------Arrange-------------------
-                var totalRecords = 10;
-                var batchSize = 10;
-                var fileName = "import.csv";
-                var fileSystem = Substitute.For<IFileSystem>();
-                var writer = CreateCsvFileWriter(fileSystem);
-                //---------------Act----------------
-                var customer = CreateCustomers(totalRecords);
-                writer.WriteInBatchOf(fileName, customer, batchSize);
-                //---------------Assert ----------------------
-                fileSystem.Received(totalRecords).WriteLine($"1_{fileName}", Arg.Any<string>());
-                fileSystem.DidNotReceive().WriteLine($"2_{fileName}", Arg.Any<string>());
-            }
-        }
-
         private static List<Customer> CreateCustomersWithDuplicates(int numberOfRecords, int duplicateCount)
         {
             return new CustomerTestDataFactory().CreateCustomersWithDuplicates(numberOfRecords, duplicateCount);

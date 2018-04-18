@@ -9,8 +9,8 @@ namespace Csv.File
         private readonly ICsvBatchFileWriter _debugWriter;
 
         public CompositeCsvFileWriter(IFileSystem fileSystem): 
-            this(new CsvFileWriter(fileSystem, new RemoveDuplicatesStrategy()), 
-                 new CsvFileWriter(fileSystem, new NullDuplicatesStrategy()))
+            this(new BatchCsvFileWriter(fileSystem, new RemoveDuplicatesStrategy()), 
+                 new BatchCsvFileWriter(fileSystem, new NullDuplicatesStrategy()))
         {
         }
 

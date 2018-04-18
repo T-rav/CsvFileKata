@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchCsvFileWriter.cs" />
     <Compile Include="CsvFileWriter.cs" />
     <Compile Include="CompositeCsvFileWriter.cs" />
     <Compile Include="ICsvBatchFileWriter.cs" />
