@@ -15,7 +15,9 @@ namespace Csv.File.Tests
                 var expected = 12;
                 var numberOfRecords = 12;
                 var strategy = new NullDuplicatesStrategy();
-                var customers = new CustomerTestDataFactory().CreateCustomersWithDuplicates(numberOfRecords, 2);
+                var duplicateCount = 2;
+                var customers = new CustomerTestDataFactory()
+                                   .CreateCustomersWithDuplicates(numberOfRecords, duplicateCount);
                 //---------------Act----------------
                 var result = strategy.Apply(customers);
                 //---------------Assert ----------------------

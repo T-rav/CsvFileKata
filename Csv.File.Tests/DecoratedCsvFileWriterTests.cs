@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Csv.File.Tests
 {
     [TestFixture]
-    public class DecoratedCsvFileWriterTests
+    public class CompositeCsvFileWriterTests
     {
         public class Write
         {
