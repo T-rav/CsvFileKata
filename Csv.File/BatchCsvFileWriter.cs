@@ -24,7 +24,7 @@ namespace Csv.File
             var fileCount = 1;
             var totalFiles = Math.Ceiling(customers.Count / (double)batchSize);
 
-            var dedupCustomers = _duplicateStrategy.Apply(customers);
+            var dedupCustomers = DedupCustomers(customers);
 
             while (fileCount <= totalFiles)
             {
@@ -33,6 +33,12 @@ namespace Csv.File
                 Write(batchFileName, batch.ToList());
                 fileCount++;
             }
+        }
+
+        private List<Customer> DedupCustomers(List<Customer> customers)
+        {
+            var dedupCustomers = _duplicateStrategy.Apply(customers);
+            return dedupCustomers;
         }
 
         private void Write(string fileName, List<Customer> customers)
