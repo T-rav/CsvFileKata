@@ -18,7 +18,7 @@ namespace Csv.File.Tests
                 var numberOfRecords = 15003;
                 var fileName = "file.csv";
                 var fileSystem = Substitute.For<IFileSystem>();
-                var writer = new DecoratedCsvFileWriter(fileSystem);
+                var writer = new CompositeCsvFileWriter(fileSystem);
                 var customers = new CustomerTestDataFactory().CreateCustomersWithDuplicates(numberOfRecords, 2);
                 //---------------Act----------------
                 writer.Write(fileName, customers);
@@ -35,7 +35,7 @@ namespace Csv.File.Tests
                 //---------------Arrange-------------------
                 var fileName = "file.csv";
                 var fileSystem = Substitute.For<IFileSystem>();
-                var writer = new DecoratedCsvFileWriter(fileSystem);
+                var writer = new CompositeCsvFileWriter(fileSystem);
                 //---------------Act----------------
                 writer.Write(fileName, null);
                 //---------------Assert ----------------------
@@ -50,7 +50,7 @@ namespace Csv.File.Tests
             {
                 //---------------Arrange-------------------
                 var fileSystem = Substitute.For<IFileSystem>();
-                var writer = new DecoratedCsvFileWriter(fileSystem);
+                var writer = new CompositeCsvFileWriter(fileSystem);
                 var customers = new CustomerTestDataFactory().CreateCustomers(5);
                 //---------------Act----------------
                 writer.Write(fileName, customers);

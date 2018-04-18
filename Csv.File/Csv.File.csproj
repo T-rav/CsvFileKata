@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvFileWriter.cs" />
-    <Compile Include="DecoratedCsvFileWriter.cs" />
+    <Compile Include="CompositeCsvFileWriter.cs" />
     <Compile Include="ICsvBatchFileWriter.cs" />
     <Compile Include="ICsvFileWriter.cs" />
     <Compile Include="IDuplicationStrategy.cs" />
